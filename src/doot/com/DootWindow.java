@@ -2,6 +2,7 @@ package doot.com;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -27,7 +28,8 @@ public class DootWindow extends JFrame {
 	private static final ImageIcon x_hover = new ImageIcon(DootWindow.class.getResource("/doot/assets/x_hover.png"));
 	
 	private static final String NEWLINE = "\n";
-	private static final String LEFT = " left until Halloween";
+	private static final String LEFT = "(s) left until Halloween";
+	private static final String HALLOWEEN = "It's Halloween!";
 
 	private static JLabel timeLeft;
 	
@@ -62,18 +64,37 @@ public class DootWindow extends JFrame {
 		});
 
 		Date now = Calendar.getInstance().getTime();
+	
 		Date halloween = new Date();
 		halloween.setMonth(9);
 		halloween.setDate(31);
 		
-		int days = (int)((halloween.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)) % 60;
+		int days;
+		
+		//Hacky as crap but that's okay
+		if (halloween.getMonth() > now.getMonth() || halloween.getMonth() == now.getMonth() && 
+			halloween.getDate() > now.getDate())
+			days = (int)((halloween.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+		else {
+			Date jan1 = new Date();
+			jan1.setMonth(0);
+			jan1.setDate(1);
+			Date dec31 = new Date();
+			dec31.setMonth(11);
+			dec31.setDate(31);
+			days = (int)((dec31.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)) + 
+				   (int)((halloween.getTime() - jan1.getTime()) / (1000 * 60 * 60 * 24));
+		}
 		
 		timeLeft = new JLabel();
-		timeLeft.setFont(new Font("Arial Bold", Font.PLAIN, 18));
-		timeLeft.setText(days + " days" + LEFT);
+		timeLeft.setFont(new Font("Arial Bold", Font.PLAIN, 16));
+		if (now.getMonth() == 9 && now.getDate() == 31)
+			timeLeft.setText(HALLOWEEN);
+		else
+			timeLeft.setText(days + " days" + LEFT);
 		timeLeft.setForeground(new Color(ConfigLoader.text_r, ConfigLoader.text_g, ConfigLoader.text_b));
 	    add(timeLeft);
-		timeLeft.setBounds(10, 200, 500, 20);
+		timeLeft.setBounds(now.getDate() == 31 && now.getMonth() == 9 ? 60 : 10, 200, 700, 20);
 		
 		skeleton = new JLabel(doot);
 		skeleton.setBounds((WIDTH - doot.getImage().getWidth(this)) / 2, 0, doot.getImage().getWidth(this), doot.getImage().getHeight(this));
