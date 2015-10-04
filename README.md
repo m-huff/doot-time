@@ -1,4 +1,4 @@
-# doot-time
+![](http://i.imgur.com/xyEM8py.png)
 
 The spookiest Halloween countdown timer you'll ever see. It runs similarly to a desktop widget, and you can configure almost everything in the program.
 
