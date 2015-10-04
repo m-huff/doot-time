@@ -1,5 +1,6 @@
 package doot.com;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,10 +25,12 @@ public class ConfigLoader {
 	static InputStream input = null;
 	static OutputStream output = null;
 	
+	static File prop = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\DootTime\\");
+	static File cfg = new File(System.getProperty("user.home") + "\\AppData\\Roaming\\DootTime\\config.properties");
 	
 	public static void loadConfig() {
-		try {
-			input = new FileInputStream("config.properties");
+		try {			
+			input = new FileInputStream(cfg);
 			config.load(input);
 
 			text_r = Integer.parseInt(config.getProperty("textcolor_r"));
@@ -48,7 +51,24 @@ public class ConfigLoader {
 	
 	public static void saveConfig() {
 		try {
-			output = new FileOutputStream("config.properties");
+			prop.mkdirs();
+			if(!prop.exists()) {
+				try {
+					prop.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} 
+			
+			if(!cfg.exists()) {
+				try {
+					cfg.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			output = new FileOutputStream(cfg);
 
 			config.setProperty("textcolor_r", String.valueOf(text_r));
 			config.setProperty("textcolor_g", String.valueOf(text_g));
@@ -66,5 +86,22 @@ public class ConfigLoader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean checkConfigExists() {
+		return cfg.exists();
+	}
+	
+	public static void setToDefaults() {
+		text_r = 255;
+		text_g = 255;
+		text_b = 255;
+		
+		screenX = 400;
+		screenY = 400;
+		
+		useSkeleton = true;
+		showHoursMinsSecs = false;
+		showX = false;
 	}
 }

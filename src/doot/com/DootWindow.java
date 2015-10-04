@@ -1,10 +1,12 @@
 package doot.com;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -36,6 +38,8 @@ public class DootWindow extends JFrame {
 	private static JButton exit;
 	
 	private static JLabel skeleton;
+	
+	private static JButton config;
 
 	public DootWindow() {
 		setSize(WIDTH, HEIGHT);
@@ -102,6 +106,23 @@ public class DootWindow extends JFrame {
 		skeleton.setVisible(true);
 		skeleton.setBackground(new Color(0,0,0,0));
 		add(skeleton);
+		
+		config = new JButton();
+		config.setBackground(new Color(0,0,0,0));
+		config.setBorder(null);
+		config.setBounds((WIDTH - doot.getImage().getWidth(this)) / 2, 0, doot.getImage().getWidth(this), doot.getImage().getHeight(this));
+		add(config);
+		config.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("Clicked");
+				try {
+					Desktop.getDesktop().edit(new File(System.getProperty("user.home") + "\\AppData\\Roaming\\DootTime\\config.properties\\"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		revalidate();
 		repaint();
