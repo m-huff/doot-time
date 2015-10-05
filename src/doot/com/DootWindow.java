@@ -40,7 +40,11 @@ public class DootWindow extends JFrame {
 	private static JLabel skeleton;
 	
 	private static JButton config;
+	
+	public ConfigWindow cfg;
+	private JFrame frame = this;
 
+	@SuppressWarnings("deprecation")
 	public DootWindow() {
 		setSize(WIDTH, HEIGHT);
 		setLayout(null);
@@ -115,16 +119,21 @@ public class DootWindow extends JFrame {
 		config.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println("Clicked");
-				try {
-					Desktop.getDesktop().edit(new File(System.getProperty("user.home") + "\\AppData\\Roaming\\DootTime\\config.properties\\"));
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				final ConfigWindow a = new ConfigWindow((DootWindow)frame);
 			}
 		});
 
 		revalidate();
 		repaint();
+	}
+	
+	public void setTextColor(Color c) {
+		if (c != null) {
+			timeLeft.setForeground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		}
+	}
+	
+	public void setX(boolean show) {
+		exit.setVisible(show);
 	}
 }

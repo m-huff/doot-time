@@ -88,6 +88,26 @@ public class ConfigLoader {
 		}
 	}
 	
+	public static boolean isInt(String in) {
+	    try {
+	        Integer.parseInt(in);
+	        return true;
+	    }
+	    catch(NumberFormatException e) {
+	        return false;
+	    }
+	}
+	
+	public static boolean isBoolean(String in) {
+	    try {
+	        Boolean.parseBoolean(in);
+	        return true;
+	    }
+	    catch(NumberFormatException e) {
+	        return false;
+	    }
+	}
+	
 	public static boolean checkConfigExists() {
 		return cfg.exists();
 	}
