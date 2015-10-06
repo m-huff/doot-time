@@ -110,13 +110,7 @@ public class DootWindow extends JFrame {
 		skeleton.setVisible(true);
 		skeleton.setBackground(new Color(0,0,0,0));
 		add(skeleton);
-		
-		config = new JButton();
-		config.setBackground(new Color(0,0,0,0));
-		config.setBorder(null);
-		config.setBounds((WIDTH - doot.getImage().getWidth(this)) / 2, 0, doot.getImage().getWidth(this), doot.getImage().getHeight(this));
-		add(config);
-		config.addMouseListener(new MouseAdapter() {
+		skeleton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				final ConfigWindow a = new ConfigWindow((DootWindow)frame);
@@ -135,5 +129,9 @@ public class DootWindow extends JFrame {
 	
 	public void setX(boolean show) {
 		exit.setVisible(show);
+	}
+	
+	public void setScreenPos(int x, int y) {
+		setLocation(x, y);	
 	}
 }

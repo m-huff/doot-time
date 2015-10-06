@@ -16,9 +16,7 @@ public class ConfigLoader {
 	
 	public static int screenX;
 	public static int screenY;
-	
-	public static boolean useSkeleton;
-	public static boolean showHoursMinsSecs;
+
 	public static boolean showX;
 	
 	static Properties config = new Properties();
@@ -39,9 +37,7 @@ public class ConfigLoader {
 			
 			screenX = Integer.parseInt(config.getProperty("screen_pos_x"));
 			screenY = Integer.parseInt(config.getProperty("screen_pos_y"));
-			
-			useSkeleton = Boolean.parseBoolean(config.getProperty("skeleton_gif"));
-			showHoursMinsSecs = Boolean.parseBoolean(config.getProperty("show_hours_mins_secs"));
+
 			showX = Boolean.parseBoolean(config.getProperty("show_exit_button"));
 			
 		} catch (IOException e) {
@@ -77,8 +73,6 @@ public class ConfigLoader {
 			config.setProperty("screen_pos_x", String.valueOf(screenX));
 			config.setProperty("screen_pos_y", String.valueOf(screenY));
 			
-			config.setProperty("skeleton_gif", String.valueOf(useSkeleton));
-			config.setProperty("show_hours_mins_secs", String.valueOf(showHoursMinsSecs));
 			config.setProperty("show_exit_button", String.valueOf(showX));
 			
 			config.store(output, null);
@@ -119,9 +113,7 @@ public class ConfigLoader {
 		
 		screenX = 400;
 		screenY = 400;
-		
-		useSkeleton = true;
-		showHoursMinsSecs = false;
+
 		showX = false;
 	}
 }
