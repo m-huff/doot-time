@@ -30,7 +30,7 @@ public class DootWindow extends JFrame {
 	private static final ImageIcon x_hover = new ImageIcon(DootWindow.class.getResource("/doot/assets/x_hover.png"));
 	
 	private static final String NEWLINE = "\n";
-	private static final String LEFT = "(s) left until Halloween";
+	private static final String LEFT = "day(s) left until Halloween";
 	private static final String HALLOWEEN = "It's Halloween!";
 
 	private static JLabel timeLeft;
@@ -99,7 +99,7 @@ public class DootWindow extends JFrame {
 		if (now.getMonth() == 9 && now.getDate() == 31)
 			timeLeft.setText(HALLOWEEN);
 		else
-			timeLeft.setText(days + " days" + LEFT);
+			timeLeft.setText(days + LEFT);
 		timeLeft.setForeground(new Color(ConfigLoader.text_r, ConfigLoader.text_g, ConfigLoader.text_b));
 	    add(timeLeft);
 		timeLeft.setBounds(now.getDate() == 31 && now.getMonth() == 9 ? 60 : 10, 200, 700, 20);
